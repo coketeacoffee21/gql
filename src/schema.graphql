@@ -10,10 +10,18 @@ type Mutation {
   vote(linkId: ID!): Vote
 }
 
+type AuthPayload {
+  token: String
+  user: User
+}
+
 type Link {
   id: ID!
   description: String!
   url: String!
+  postedBy: User
+  votes: [Vote!]!
+  createdAt: DateTime!
 }
 
 type Subscription {
@@ -25,3 +33,12 @@ type Vote {
   link: Link!
   user: User!
 }
+
+type User {
+  id: ID!
+  name: String!
+  email: String!
+  links: [Link!]!
+}
+
+scalar DateTime

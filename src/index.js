@@ -2,6 +2,8 @@
 const fs = require('fs');
 const path = require('path');
 const Subscription = require('./resolvers/Subscription')
+const Mutation = require('./resolvers/Mutation')
+
 const { PrismaClient } = require('@prisma/client')
 const { ApolloServer, PubSub } = require('apollo-server');
 const pubsub = new PubSub()
@@ -13,17 +15,7 @@ const resolvers = {
       return context.prisma.link.findMany()
     },
   },
-  Mutation: {
-    post: (parent, args, context, info) => {
-      const newLink = context.prisma.link.create({
-        data: {
-          url: args.url,
-          description: args.description,
-        },
-      })
-      return newLink
-    },
-  },
+  Mutation,
   Subscription
   // User,
   // Link
